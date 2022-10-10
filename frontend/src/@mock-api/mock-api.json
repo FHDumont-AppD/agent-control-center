@@ -1,0 +1,49 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ACC Mock API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Agent Control Center"
+    },
+    "description": "ACC Mock API Open API Definitions"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {},
+  "components": {
+    "securitySchemes": {},
+    "examples": {
+      "auth_users": {
+        "value": [
+          {
+            "uuid": "dkacsdfkajaSDFASDF3E",
+            "from": "custom-db",
+            "password": "admin",
+            "role": "admin",
+            "data": {
+              "displayName": "ACC",
+              "photoURL": "",
+              "email": "acc@appdynamics.com",
+              "settings": {
+                "layout": {},
+                "theme": {}
+              },
+              "shortcuts": []
+            }
+          }
+        ]
+      },
+      "notifications": {
+        "value": []
+      },
+      "users": {
+        "value": []
+      }
+    },
+    "responses": {}
+  }
+}
