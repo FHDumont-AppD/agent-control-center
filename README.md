@@ -61,20 +61,20 @@ Now agents can be updated!
 
 To list the agents, click on the Agents item in the side menu.
 
-![06](https://github.com/FHDumont-AppD/agent-control-center/blob/main/docimages/01.AgentsfromAppD.png?raw=true)
+![06](https://github.com/FHDumont-AppD/agent-control-center/blob/main/docimages/AgentsfromAppD-01.png?raw=true)
 
 To update the agent version, click on the "play" corresponding to the agent.
 
 The interface will automatically identify the agent type and ask for the information needed to update the agent. Enter the requested data and click on "Create Task"
 
-![07](https://github.com/FHDumont-AppD/agent-control-center/blob/main/images/UpdateAgent-02.png?raw=true)
+![07](https://github.com/FHDumont-AppD/agent-control-center/blob/main/docimages/UpdateAgent-02.png?raw=true)
 
 An Ansilbe or API task will be created, depending on the type of the recognition agent automatically.
 
 To see the result of the update, click on the Task item in the menu and then on the task to be viewed.
 
-![08](https://github.com/FHDumont-AppD/agent-control-center/blob/main/images/Task-01.png?raw=true)
+![08](https://github.com/FHDumont-AppD/agent-control-center/blob/main/docimages/Task-01.png?raw=true)
 
-![09](https://github.com/FHDumont-AppD/agent-control-center/blob/main/images/Task-04.png?raw=true)
+![09](https://github.com/FHDumont-AppD/agent-control-center/blob/main/docimages/Task-02.png?raw=true)
 
 IMPORTANT: the application needs to be restarted to recognize the new agent version.
