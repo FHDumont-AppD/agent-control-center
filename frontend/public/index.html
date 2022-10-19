@@ -5,6 +5,7 @@
     <meta name="description" content="AppDynamics Agent Control Center" />
     <meta name="keywords" content="AppDynamics,AppD,CISCO,FSO" />
     <meta name="author" content="Fernando Dumont" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -33,99 +34,87 @@
     </script>
     <script src="//cdn.appdynamics.com/adrum/adrum-latest.js"></script>
 
-    <link href="%PUBLIC_URL%/assets/tailwind-base.css" rel="stylesheet" />
-
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-
     <link
-      href="%PUBLIC_URL%/assets/fonts/material-design-icons/MaterialIconsOutlined.css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
       rel="stylesheet"
     />
-
-    <link href="%PUBLIC_URL%/assets/fonts/inter/inter.css" rel="stylesheet" />
     <link
-      href="%PUBLIC_URL%/assets/fonts/meteocons/style.css"
+      href="https://fonts.googleapis.com/css?family=Material+Icons"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atelier-cave-light.min.css"
+    />
 
-    <noscript id="emotion-insertion-point"></noscript>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
     <title>AppD Agent Control Center</title>
 
+    <!-- style -->
     <style>
-      body #fuse-splash-screen {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        top: 0;
+      .swal2-styled.swal2-confirm {
+        background-color: #1976d2 !important;
+      }
+      .matx-loader {
+        display: inline-block;
+        position: absolute;
+        width: 40px;
+        height: 40px;
         left: 0;
         right: 0;
+        top: calc(50% - 20px);
+        margin: auto;
+      }
+      .matx-loader img {
+        position: absolute;
+        height: 25px;
+        width: auto;
+        top: 0;
         bottom: 0;
-        background-color: #ffffff;
-        color: #f9fafb;
-        z-index: 999999;
-        pointer-events: none;
-        opacity: 1;
-        visibility: visible;
-        transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        left: 0;
+        right: 0;
+        margin: auto;
       }
-
-      body #fuse-splash-screen img {
-        width: 120px;
-        max-width: 120px;
+      .matx-loader div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        margin: 0;
+        border: 3.4px solid #1976d2;
+        border-radius: 50%;
+        animation: matx-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #1976d2 transparent transparent transparent;
       }
-
-      #spinner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 40px;
-        width: 56px;
+      .matx-loader div:nth-child(1) {
+        animation-delay: -0.45s;
       }
-
-      #spinner > div {
-        width: 12px;
-        height: 12px;
-        background-color: #1e96f7;
-        border-radius: 100%;
-        display: inline-block;
-        -webkit-animation: fuse-bouncedelay 1s infinite ease-in-out both;
-        animation: fuse-bouncedelay 1s infinite ease-in-out both;
+      .matx-loader div:nth-child(2) {
+        animation-delay: -0.3s;
       }
-
-      #spinner .bounce1 {
-        -webkit-animation-delay: -0.32s;
-        animation-delay: -0.32s;
+      .matx-loader div:nth-child(3) {
+        animation-delay: -0.15s;
       }
-
-      #spinner .bounce2 {
-        -webkit-animation-delay: -0.16s;
-        animation-delay: -0.16s;
-      }
-
-      @-webkit-keyframes fuse-bouncedelay {
-        0%,
-        80%,
+      @keyframes matx-loader {
+        0% {
+          transform: rotate(0deg);
+        }
         100% {
-          -webkit-transform: scale(0);
-        }
-        40% {
-          -webkit-transform: scale(1);
-        }
-      }
-
-      @keyframes fuse-bouncedelay {
-        0%,
-        80%,
-        100% {
-          -webkit-transform: scale(0);
-          transform: scale(0);
-        }
-        40% {
-          -webkit-transform: scale(1);
-          transform: scale(1);
+          transform: rotate(360deg);
         }
       }
     </style>
@@ -133,22 +122,26 @@
     <!-- ENV -->
     <script src="assets/scripts/env.js"></script>
   </head>
-  <body>
-    <noscript> You need to enable JavaScript to run this app. </noscript>
 
-    <div id="root" class="flex">
-      <!-- FUSE Splash Screen -->
-      <div id="fuse-splash-screen">
-        <div class="logo">
-          <img src="assets/images/logo/appd-logo-transp.png" alt="logo" />
-        </div>
-        <div id="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <div class="matx-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-      <!-- / Splash Screen -->
     </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
   </body>
 </html>

@@ -1,11 +1,6 @@
-/**
- * Authorization Roles
- */
-const authRoles = {
-  admin: ['admin'],
-  staff: ['admin', 'staff'],
-  user: ['admin', 'staff', 'user'],
-  onlyGuest: [],
+export const authRoles = {
+  sa: ["SA"], // Only Super Admin has access
+  admin: ["SA", "ADMIN"], // Only SA & Admin has access
+  editor: ["SA", "ADMIN", "EDITOR"], // Only SA & Admin & Editor has access
+  guest: ["SA", "ADMIN", "EDITOR", "GUEST"], // Everyone has access
 };
-
-export default authRoles;
