@@ -28,10 +28,11 @@ const add = async (req: Request, res: Response, next: NextFunction) => {
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   let updateJSON = req.body;
+  let _id = new mongo.ObjectID(req.body._id);
   delete updateJSON._id;
   let result = await global.mongoConnection
     .collection("package")
-    .updateOne({ _id: new mongo.ObjectID(req.body.id) }, { $set: updateJSON });
+    .updateOne({ _id: _id }, { $set: updateJSON });
 
   return res.status(200).json({ message: result });
 };
