@@ -58,24 +58,18 @@ router.use((error: any, req: Request, res: Response, next: NextFunction) => {
   let message = error.message || error;
 
   if (error && error.response) {
-    console.log("====1");
     if (error.response.status) {
-      console.log("====2");
       statusCode = error.response.status;
     }
     if (error.response.statusText) {
-      console.log("====3");
       message = error.response.statusText;
     }
     if (error.response.data && error.response.data.detail) {
-      console.log("====4", error.response.data);
       message = error.response.data.detail;
     }
-    console.log("====5");
   }
-  console.log("====6", statusCode, message);
 
-  // console.error(error.response.data.detail);
+  console.error("======xxxxx", error, message);
   //   data: {
   //   status: 400,
   //   title: 'Bad Request',
@@ -83,7 +77,7 @@ router.use((error: any, req: Request, res: Response, next: NextFunction) => {
   //   trackingId: '5daa5846a1ea2232cc71e9d01dcb9d47'
   // }
   console.error("===> END ERROR <===");
-  return ResponseHandler.createResponse(res, statusCode, message);
+  return ResponseHandler.createResponse(res, statusCode, message, true);
 });
 
 export = router;

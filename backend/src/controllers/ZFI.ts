@@ -18,13 +18,19 @@ async function findSystemId(
 
   let result = await request.data;
 
+  console.log("====result", result);
+
   result = result.items.filter(
     (item: any) =>
       item.hostname == hostName && item.applicationName == applicationName
   );
 
   if (!result || result.length == 0) {
-    throw new Error("System ID not found");
+    throw new ErrorHandler(
+      200,
+      true,
+      "The agent was not identified as a ZFI [ System ID not found ]"
+    );
   }
   return result[0];
   // } catch (error) {
@@ -57,7 +63,6 @@ async function upgradeAgent(
   // } catch (error) {
   //   console.log("====5", error);
   // }
-  console.log("====4");
 
   return result;
 
@@ -154,10 +159,18 @@ async function createTask(
       item.version == REQ_JSON.agent.version;
   });
   if (!currentVersion || currentVersion.length > 0) {
-    throw new Error("It's not possible to upgrade to the same version.");
+    throw new ErrorHandler(
+      200,
+      true,
+      "It's not possible to upgrade to the same version."
+    );
   }
   if (!currentVersion || currentVersion.length > 0) {
-    throw new Error("It's not possible to upgrade to the same version.");
+    throw new ErrorHandler(
+      200,
+      true,
+      "It's not possible to upgrade to the same version."
+    );
   }
 
   upgrade = {
@@ -175,9 +188,7 @@ async function createTask(
     ],
   };
 
-  console.log("====1");
   upgrade = await upgradeAgent(accessToken, controller, upgrade);
-  console.log("====2");
 
   return {
     ...REQ_JSON,

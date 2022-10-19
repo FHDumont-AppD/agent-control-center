@@ -211,7 +211,7 @@ const getController = async (req: Request) => {
   let controller = req.headers.ct;
 
   if (controller == undefined) {
-    throw new Error("Controller not found in Header!");
+    throw new ErrorHandler(200, true, "Controller not found in Header!");
   }
 
   return controller;
@@ -221,7 +221,7 @@ const getAccessToken = async (req: Request) => {
   let accessToken = req.headers.at;
 
   if (accessToken == undefined) {
-    throw new Error("Access Token not found in Header!");
+    throw new ErrorHandler(200, true, "Access Token not found in Header!");
   }
 
   return accessToken;

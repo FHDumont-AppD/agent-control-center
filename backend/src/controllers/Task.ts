@@ -104,7 +104,7 @@ const getLog = async (req: Request, res: Response, next: NextFunction) => {
           }
         }
       } else {
-        throw new Error("Agent Type incompatible!");
+        throw new ErrorHandler(200, true, "Agent Type incompatible!");
       }
     }
 
@@ -127,13 +127,17 @@ const createTask = async (req: Request, res: Response, next: NextFunction) => {
       .findOne({ controller: REQ_JSON.controller.controller });
 
     if (controllerMongo == null) {
-      throw new Error(
+      throw new ErrorHandler(
+        200,
+        true,
         "Controller not found, please setup it in the left menu."
       );
     }
 
     if (controllerMongo.accountAccessKey == undefined) {
-      throw new Error(
+      throw new ErrorHandler(
+        200,
+        true,
         "Account Access Key not found, please setup it in the left menu."
       );
     }
@@ -152,7 +156,7 @@ const createTask = async (req: Request, res: Response, next: NextFunction) => {
       task = await ZFI.createTask(accessToken, controller, REQ_JSON);
     } else {
       throw new ErrorHandler(
-        400,
+        200,
         true,
         "Task not created, Agent Type incompatible!"
       );

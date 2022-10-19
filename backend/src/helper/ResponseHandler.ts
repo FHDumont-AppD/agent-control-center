@@ -1,10 +1,15 @@
 import { Response } from "express";
 const ErrorHandler = require("../helper/ErrorHandler");
 
-const createResponse = async (res: Response, statusCode: number, data: any) => {
+const createResponse = async (
+  res: Response,
+  statusCode: number,
+  data: any,
+  isError: boolean = false
+) => {
   let result: any = {
-    status: statusCode || 500,
-    isError: statusCode != 200,
+    status: statusCode || 400,
+    isError: isError || statusCode != 200,
   };
 
   if (statusCode == 200) {

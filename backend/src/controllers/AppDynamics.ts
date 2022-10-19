@@ -24,8 +24,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       200,
       responseRequest.data.access_token
     );
-  } catch (error) {
-    next(error);
+  } catch (error: any) {
+    if (error.response.status) {
+      return ResponseHandler.createResponse(res, 200, "Unauthorized", true);
+    } else {
+      next(error);
+    }
   }
 };
 
@@ -37,9 +41,11 @@ const listAgents = async (req: Request, res: Response, next: NextFunction) => {
     let typeAgent: any = req.query.typeAgent;
 
     let lastExecute = localStorage.getItem(
-      `listAgent.lastExecute.${typeAgent}`
+      `listAgent.lastExecute.${typeAgent}.${controller}`
     );
-    let resultIds = localStorage.getItem(`listAgent.data.${typeAgent}`);
+    let resultIds = localStorage.getItem(
+      `listAgent.data.${typeAgent}.${controller}`
+    );
 
     if (
       lastExecute == undefined ||
@@ -69,9 +75,12 @@ const listAgents = async (req: Request, res: Response, next: NextFunction) => {
         //   accessToken
         // );
       }
-      localStorage.setItem(`listAgent.lastExecute.${typeAgent}`, Date.now());
       localStorage.setItem(
-        `listAgent.data.${typeAgent}`,
+        `listAgent.lastExecute.${typeAgent}.${controller}`,
+        Date.now()
+      );
+      localStorage.setItem(
+        `listAgent.data.${typeAgent}.${controller}`,
         JSON.stringify(resultIds)
       );
     } else {
@@ -166,7 +175,7 @@ const getAgentNodeAvailability = async (
       for (let index = 0; index < resultAPI[0].metricValues.length; index++) {
         const element = resultAPI[0].metricValues[index];
         const newElement = {
-          x: moment(element.startTimeInMillis).format("DD/MM/YYYY HH:mm"),
+          x: moment(element.startTimeInMillis).format("YYYY/MM/DD HH:mm"),
           y: element.value * 100,
         };
         firstHistory.push(newElement);
@@ -186,12 +195,12 @@ const getAgentNodeAvailability = async (
       if (diffMinutes > 1) {
         for (let index = 1; index < diffMinutes; index++) {
           finalHistory.push({
-            x: moment(before).add(index, "minutes").format("DD/MM/YYYY HH:mm"),
+            x: moment(before).add(index, "minutes").format("YYYY/MM/DD HH:mm"),
             y: 0,
           });
         }
       }
-      finalHistory.push({ x: current.format("DD/MM/YYYY HH:mm"), y: item.y });
+      finalHistory.push({ x: current.format("YYYY/MM/DD HH:mm"), y: item.y });
       before = current;
     });
 
@@ -203,7 +212,7 @@ const getAgentNodeAvailability = async (
         finalHistory.push({
           x: moment(lastItem.x)
             .add(index, "minutes")
-            .format("DD/MM/YYYY HH:mm"),
+            .format("YYYY/MM/DD HH:mm"),
           y: 0,
         });
       }
