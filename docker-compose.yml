@@ -35,7 +35,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./docker-data/backend/ansible/agent-files:/app/ansible/agent-files
+      - ./acc-backend-data/ansible/agent-files:/app/ansible/agent-files
       - ~/.ssh/aws-services.cer:/app/.ssh/aws-services.cer
     networks:
       - acc-net
@@ -54,9 +54,12 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./docker-data/mongodb/data:/data
+      - acc-mongo-data:/data/db
     networks:
       - acc-net
 
 networks:
   acc-net:
+
+volumes:
+  acc-mongo-data:
